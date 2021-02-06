@@ -31,7 +31,7 @@
         </div>
 
 
-        <form action="/action_page.php">
+        <form id="form" action="/action_page.php">
           <input type="text" placeholder="Username" name="username">
           <input type="text" placeholder="Password" name="psw">
           <button type="submit">Login</button>
@@ -41,18 +41,18 @@
   </div>
   <div class='row'>
     <!-- recent search card will display search history  -->
-    <div class="card" style="width: 20rem;">
+    <div class="card" id="recent-search" style="width: 20rem;">
       <div class="card-header">
         Recent Search
       </div>
-      <ul class="list-group list-group-flush">
+      <ul id="recent-search" class="list-group list-group-flush">
         <li class="list-group-item"></li>
         <li class="list-group-item"></li>
         <li class="list-group-item"></li>
       </ul>
     </div>
 
-    <div class="card" style="width: 80rem;">
+    <div class="card" id="main-card" style="width: 80rem;">
       <!-- card body will display generated table -->
       <!-- <div class="row current card"> -->
       <div class="card-body">
