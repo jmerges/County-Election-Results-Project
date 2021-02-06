@@ -16,3 +16,12 @@ create table countypres (
     totalvotes int,
     version int
 );
+
+
+-- **** Schema to import data into the database. Will be uncommented when the site deploys ****
+
+-- LOAD DATA INFILE './countpres_2000_2016.csv'
+-- INTO TABLE countypres
+-- FIELDS TERMINATED BY ','
+-- ENCLOSED BY '"'
+-- LINES TERMINATED BY '/n';
