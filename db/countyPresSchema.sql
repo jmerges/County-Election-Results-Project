@@ -3,7 +3,7 @@ create database countypres_2000_2016;
 use countypres_2000_2016;
 
 create table countypres (
-	id INT primary key not null auto_increment,
+	countypresId INT primary key not null auto_increment,
     year int,
     state varchar(50),
     state_po varchar(2),
@@ -15,4 +15,13 @@ create table countypres (
     candidatevotes int,
     totalvotes int,
     version int
+);
+
+create table users (
+    userId INT primary key not null auto_increment,
+    username varchar(100),
+    userPassword varchar(50),
+    userEmail varchar(100)
+    countypresId int not null,
+    FOREIGN KEY (countypresId) REFERENCES countypres(countypresId)
 );
