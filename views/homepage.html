@@ -31,28 +31,35 @@
         </div>
 
 
-        <form action="/action_page.php">
+        <form id="form" action="/action_page.php">
           <input type="text" placeholder="Username" name="username">
           <input type="text" placeholder="Password" name="psw">
-          <button type="submit">Login</button>
+          <button type="submit" id="loginButton">Login</button>
         </form>
+
+        <!-- Modal button for signup -->
+        <button type="button" id="registerButton" data-toggle="modal" data-target="#registerUser">Register</button>
+
+
+
       </div>
     </div>
   </div>
+
   <div class='row'>
     <!-- recent search card will display search history  -->
-    <div class="card" style="width: 20rem;">
+    <div class="card" id="recent-search" style="width: 20rem;">
       <div class="card-header">
         Recent Search
       </div>
-      <ul class="list-group list-group-flush">
+      <ul id="recent-search" class="list-group list-group-flush">
         <li class="list-group-item"></li>
         <li class="list-group-item"></li>
         <li class="list-group-item"></li>
       </ul>
     </div>
 
-    <div class="card" style="width: 80rem;">
+    <div class="card" id="main-card" style="width: 80rem;">
       <!-- card body will display generated table -->
       <!-- <div class="row current card"> -->
       <div class="card-body">
@@ -62,17 +69,13 @@
 
   </div>
 
-
-  <!-- Modal for signup -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerUser"
-    data-whatever="@getbootstrap">Open modal for @getbootstrap</button>
-
-  <div class="modal fade" id="registerUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+ <!-- Modal data for button in navbar -->
+  <div class="modal fade" id="registerUser" tabindex="-1" role="dialog" aria-labelledby="registerUser"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Register a new account</h5>
+          <h5 class="modal-title" id="registerMessage">Register a new account</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -85,22 +88,22 @@
             </div>
             <div class="form-group">
               <label for="username" class="col-form-label">Password:</label>
-              <input type="text" class="form-control" id="username">
+              <input type="text" class="form-control" id="userPassword">
             </div>
             <div class="form-group">
               <label for="username" class="col-form-label">E-mail:</label>
-              <input type="text" class="form-control" id="username">
+              <input type="text" class="form-control" id="userEmail">
             </div>
-
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Send message</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary">Submit</button>
         </div>
       </div>
     </div>
   </div>
+
 
   <!-- Jquery CDN -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
