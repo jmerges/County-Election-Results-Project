@@ -46,7 +46,7 @@ body {
   width:120px;
 }
 
-.topnav .login-container button {
+#loginButton, #registerButton {
   float: right;
   padding: 6px 10px;
   margin-top: 8px;
@@ -58,7 +58,7 @@ body {
   cursor: pointer;
 }
 
-.topnav .login-container button:hover {
+#loginButton:hover, #registerButton:hover {
   background-color: green;
 }
 
@@ -66,7 +66,7 @@ body {
   .topnav .login-container {
     float: none;
   }
-  .topnav a, .topnav input[type=text], .topnav .login-container button {
+  .topnav a, .topnav input[type=text], #loginButton, #registerButton {
     float: none;
     display: block;
     text-align: left;
