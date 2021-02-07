@@ -20,7 +20,7 @@ body {
 
 #recent-search {
   background-color: #2196F3;
-  min-height: 500px;
+  min-height: 550px;
   margin-left: 50px;
   margin-right: 100px;
 
@@ -59,6 +59,10 @@ body {
   width:120px;
 }
 
+.topnav-right {
+  float: right;
+}
+
 #loginButton, #registerButton {
   float: right;
   padding: 6px 10px;
@@ -71,8 +75,13 @@ body {
   cursor: pointer;
 }
 
+.loginButton{
+ padding: 30px 24px;
+
+}
+
 .card {
-  min-height: 500px;
+  min-height: 550px;
 }
 
 #loginButton:hover, #registerButton:hover {
