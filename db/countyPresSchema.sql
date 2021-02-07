@@ -21,7 +21,7 @@ create table users (
     userId INT primary key not null auto_increment,
     username varchar(100),
     userPassword varchar(50),
-    userEmail varchar(100)
+    userEmail varchar(100),
     countypresId int not null,
     FOREIGN KEY (countypresId) REFERENCES countypres(countypresId)
 );

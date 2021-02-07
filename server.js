@@ -9,7 +9,8 @@ app.use(express.json());
 app.use(express.static('public'))
 
 // routes
-var api = require("./routes/api-routes")
+require("./routes/api-routes")(app)
+require("./routes/html-routes")(app)
 
 // alert user when connected
 app.listen(PORT,() => {
