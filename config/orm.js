@@ -11,7 +11,7 @@ var orm = {
     },
 
     getCountyDemocrat: function(county, cb) {
-        queryString = "SELECT candidatevotes FROM countypres WHERE party = 'democrat' AND county = '"+county+"'";
+        queryString = "SELECT candidatevotes, totalvotes, year FROM countypres WHERE party = 'democrat' AND county = '"+county+"'";
         connection.query(queryString, function(err, result) {
             if (err) throw err;
             cb(result);
@@ -19,7 +19,7 @@ var orm = {
     },
 
     getCountyStateDemocrat: function(county, state, cb) {
-        queryString = "SELECT candidatevotes FROM countypres WHERE party = 'democrat' AND county = '"+county+"' AND state = '"+state+"'";
+        queryString = "SELECT candidatevotes, totalvotes, year FROM countypres WHERE party = 'democrat' AND county = '"+county+"' AND state = '"+state+"'";
         connection.query(queryString, function(err, result) {
             if (err) throw err;
             cb(result);
@@ -27,7 +27,7 @@ var orm = {
     },
 
     getCountyRepublican: function(county, cb) {
-        queryString = "SELECT candidatevotes FROM countypres WHERE party = 'republican' AND county = '"+county+"'";
+        queryString = "SELECT candidatevotes, totalvotes, year FROM countypres WHERE party = 'republican' AND county = '"+county+"'";
         connection.query(queryString, function(err, result) {
             if (err) throw err;
             cb(result);
@@ -35,7 +35,7 @@ var orm = {
     },
 
     getCountyStateRepublican: function(county, state, cb) {
-        queryString = "SELECT candidatevotes FROM countypres WHERE party = 'republican' AND county = '"+county+"' AND state = '"+state+"'";
+        queryString = "SELECT candidatevotes, totalvotes, year FROM countypres WHERE party = 'republican' AND county = '"+county+"' AND state = '"+state+"'";
         connection.query(queryString, function(err, result) {
             if (err) throw err;
             cb(result);
@@ -43,7 +43,7 @@ var orm = {
     },
 
     getCountyGreen: function(county, cb) {
-        queryString = "SELECT candidatevotes FROM countypres WHERE party = 'green' AND county = '"+county+"'";
+        queryString = "SELECT candidatevotes, totalvotes, year FROM countypres WHERE party = 'green' AND county = '"+county+"'";
         connection.query(queryString, function(err, result) {
             if (err) throw err;
             cb(result);
@@ -51,7 +51,7 @@ var orm = {
     },
 
     getCountyStateGreen: function(county, state, cb) {
-        queryString = "SELECT candidatevotes FROM countypres WHERE party = 'green' AND county = '"+county+"' AND state = '"+state+"'";
+        queryString = "SELECT candidatevotes, totalvotes, year FROM countypres WHERE party = 'green' AND county = '"+county+"' AND state = '"+state+"'";
         connection.query(queryString, function(err, result) {
             if (err) throw err;
             cb(result);
