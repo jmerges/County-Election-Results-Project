@@ -7,3 +7,5 @@ var PORT = process.env.PORT || 5501;
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.static('public'))
+
+// routes
