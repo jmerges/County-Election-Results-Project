@@ -15,17 +15,23 @@ body {
   background: url("../img/flag.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-
-
-  /* background-image: url("../img/flag.jpg"); */
+  padding-bottom: 150px;
 }
 
 #recent-search {
   background-color: #2196F3;
-  min-height: 200px;
+  min-height: 500px;
+  margin-left: 50px;
+  margin-right: 100px;
 
 }
 
+.login {
+  margin-left: 100px;
+}
+.register-message {
+  text-align: center;
+}
 .topnav a {
   float: left;
   display: block;
@@ -66,7 +72,7 @@ body {
 }
 
 .card {
-  min-height: 200px;
+  min-height: 500px;
 }
 
 #loginButton:hover, #registerButton:hover {
