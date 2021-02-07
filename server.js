@@ -9,3 +9,5 @@ app.use(express.json());
 app.use(express.static('public'))
 
 // routes
+var api = require("./routes/api-routes")
+
