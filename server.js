@@ -7,7 +7,7 @@ var db = require("./models")
 // server middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static("public"));
+app.use("/public", express.static("./public/"));
 
 // routes
 require("./routes/api-routes")(app);
