@@ -17,9 +17,9 @@
   <div class="topnav">
     <div class="container-fluid">
       <div class='row'>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <form class="navbar-form navbar-left" action="/action_page.php">
-            <div class="form-group">
+            <div id="search" class="form-group">
               <input type="text" class="form-control" placeholder="Search">
             </div>
           </form>
@@ -30,12 +30,13 @@
           <a class="navbar-brand"> <h2>Votes From Sea to Shining Sea</h2></a>
         </div>
 
-
+        <div class="topnav-right">
         <form id="form" action="/action_page.php">
           <input type="text" placeholder="Username" name="username">
           <input type="text" placeholder="Password" name="psw">
           <button type="submit" id="loginButton">Login</button>
         </form>
+        </div>
 
         <!-- Modal button for signup -->
         <button type="button" id="registerButton" data-toggle="modal" data-target="#registerUser">Register</button>
@@ -48,11 +49,23 @@
 
   <div class='row'>
     <!-- recent search card will display search history  -->
-    <div class="card" id="recent-search" style="width: 20rem;">
+    <div class="card" id="recent-search" style="width: 25rem;">
       <div class="card-header">
         Recent Search
       </div>
-      <ul id="recent-search" class="list-group list-group-flush">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
         <li class="list-group-item"></li>
         <li class="list-group-item"></li>
         <li class="list-group-item"></li>
@@ -62,7 +75,7 @@
     <div class="card" id="main-card" style="width: 80rem;">
       <!-- card body will display generated table -->
       <!-- <div class="row current card"> -->
-      <div class="card-body">
+      <div id= card class="card-body">
 
       </div>
     </div>
@@ -80,7 +93,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div id="login" class="modal-body">
           <form>
             <div class="form-group">
               <label for="username" class="col-form-label">Username:</label>
@@ -89,6 +102,10 @@
             <div class="form-group">
               <label for="username" class="col-form-label">Password:</label>
               <input type="text" class="form-control" id="userPassword">
+            </div>
+            <div style="display: none" id="alert" class="alert alert-danger" role="alert">
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              <span class="sr-only">Error:</span> <span class="msg"></span>
             </div>
             <div class="form-group">
               <label for="username" class="col-form-label">E-mail:</label>
