@@ -17,8 +17,8 @@ create table countypres (
     version int
 );
 
-create table users (
-    userId INT primary key not null auto_increment,
+create table user (
+    userId int primary key not null auto_increment,
     username varchar(100),
     userPassword varchar(50),
     userEmail varchar(100),
