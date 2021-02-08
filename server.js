@@ -2,17 +2,20 @@
 var express = require("express");
 var app = express();
 var PORT = process.env.PORT || 5501;
+var db = require("./models")
 
 // server middleware
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static('public'))
+app.use(express.static("public"));
 
 // routes
-require("./routes/api-routes")(app)
-require("./routes/html-routes")(app)
+require("./routes/api-routes")(app);
+require("./routes/html-routes")(app);
 
 // alert user when connected
-app.listen(PORT,() => {
-    console.log("connection complete Listening on: http://localhost:" + PORT);
+db.sequelize.sync().then(function () {
+    app.listen(PORT, () => {
+        console.log("connection complete Listening on: http://localhost:" + PORT);
+    });
 });

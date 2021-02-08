@@ -1,4 +1,5 @@
 var orm = require("../config/orm.js");
+var db = require("../models");
 
 module.exports = function (app) {
 
