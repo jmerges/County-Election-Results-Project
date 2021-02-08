@@ -9,69 +9,20 @@ body, .topnav {
 
 }
 
-#recent-search {
+#recent-search, #loginButton, #registerButton {
   background-color: #2196F3;
+  margin-top: 8px;
 }
 
-#user {
-  width: 150px;
-}
-.topnav a {
-  float: left;
-  display: block;
-  color: black;
-  text-align: center;
-  /* padding: 14px 16px; */
-  text-decoration: none;
-  font-size: 17px;
-  
-}
-
-.topnav a.active {
-  background-color: #2196F3;
-  color: white;
-}
-
-#form {
-  float: right;
+.topnav {
+  margin-top: 10px;
 }
 
 .topnav input[type=text] {
   margin-top: 20px;
-  /* font-size: 17px; */
-  /* border: none; */
   width:220px;
-}
-
-#loginButton, #registerButton {
-  /* float: right;
-  padding: ;
-  margin-top: 8px;
-  margin-right: ;
-  background-color: #555;
-  color: white;
-  font-size: 17px;
-  border: none;
-  cursor: pointer; */
 }
 
 #loginButton:hover, #registerButton:hover {
   background-color: red;
-}
-
-@media screen and (max-width: ) {
-  .topnav .login-container {
-    float: right;
-  }
-  .topnav a, .topnav input[type=text], #loginButton, #registerButton {
-    /* float: right;
-    display: block;
-    text-align: left;
-    width: 100%;
-    margin: 0;
-    padding: 14px; */
-  }
-  .topnav input[type=text] {
-    border: 1px solid #ccc;  
-  }
 }
