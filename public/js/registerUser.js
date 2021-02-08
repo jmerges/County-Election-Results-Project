@@ -2,16 +2,17 @@ $(document).ready(function() {
   // Getting references to our form and input
   var registerUser = $("#registerUserSubmit");
   var username = $("#username");
-  var userEmail = $("#userEmail");
   var userPassword = $("#userPassword");
+  var userEmail = $("#userEmail");
+ 
 
   // When the signup button is clicked, we validate the email and password are not blank
   registerUser.on("click", function(event) {
     event.preventDefault();
     var userData = {
       username: username.val().trim(),
-      email: userEmail.val().trim(),
-      password: userPassword.val().trim()
+      password: userPassword.val().trim(),
+      email: userEmail.val().trim()
     };
 console.log(userData)
     if (!userData.username || !userData.email || !userData.password) {
@@ -20,8 +21,8 @@ console.log(userData)
     // If we have an email and password, run the signUpUser function
     registerUsers(userData.username, userData.email, userData.password);
     username.val("");
-    userEmail.val("");
     userPassword.val("");
+    userEmail.val("");
   });
 
   // Does a post to the registerUser route. If successful, we are redirected to the members page. Otherwise log any errors
@@ -29,8 +30,8 @@ console.log(userData)
   function registerUsers(username, email, password) {
     $.post("/api/registerUser", {
       username: username,
-      email: email,
-      password: password
+      password: password,
+      email: email
     })
       .then(function(data) {
         window.location.replace("/homepage");

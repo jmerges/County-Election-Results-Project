@@ -7,12 +7,12 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false
     },
     // password must be entered
-    password: {
+    userPassword: {
       type: DataTypes.STRING,
       allowNull: false
     },
     // email must be entered
-    email: {
+    userEmail: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
