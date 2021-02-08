@@ -10,7 +10,7 @@ module.exports = function (app) {
             username: req.body.username,
             password: req.body.password,
             email: req.body.email
-            })
+        })
             .then(function () {
                 res.redirect(307, "/api/registerUser");
             })

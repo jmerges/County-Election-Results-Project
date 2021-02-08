@@ -5,7 +5,6 @@ $(document).ready(function() {
   var userPassword = $("#userPassword");
   var userEmail = $("#userEmail");
  
-
   // When the signup button is clicked, we validate the email and password are not blank
   registerUser.on("click", function(event) {
     event.preventDefault();
