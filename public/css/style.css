@@ -20,6 +20,10 @@ body {
   /* background-image: url("../img/flag.jpg"); */
 }
 
+.container-fluid {
+  float: right;
+}
+
 #recent-search {
   background-color: #2196F3;
 }
@@ -39,6 +43,11 @@ body {
   background-color: #2196F3;
   color: white;
 }
+
+#form {
+  float: right;
+}
+
 
 .topnav .login-container {
   float: right;
@@ -70,10 +79,10 @@ body {
 
 @media screen and (max-width: 600px) {
   .topnav .login-container {
-    float: none;
+    float: right;
   }
   .topnav a, .topnav input[type=text], #loginButton, #registerButton {
-    float: none;
+    float: right;
     display: block;
     text-align: left;
     width: 100%;
