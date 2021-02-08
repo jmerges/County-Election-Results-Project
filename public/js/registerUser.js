@@ -13,12 +13,12 @@ $(document).ready(function() {
       email: userEmail.val().trim(),
       password: userPassword.val().trim()
     };
-
+console.log(userData)
     if (!userData.username || !userData.email || !userData.password) {
       return;
     }
     // If we have an email and password, run the signUpUser function
-    registerUser(userData.username, userData.email, userData.password);
+    registerUsers(userData.username, userData.email, userData.password);
     username.val("");
     userEmail.val("");
     userPassword.val("");
@@ -26,8 +26,9 @@ $(document).ready(function() {
 
   // Does a post to the registerUser route. If successful, we are redirected to the members page. Otherwise log any errors
   
-  function registerUser(email, password) {
+  function registerUsers(username, email, password) {
     $.post("/api/registerUser", {
+      username: username,
       email: email,
       password: password
     })
