@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/jmerges/County-Election-Results-Project#readme",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "express": "^4.17.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
