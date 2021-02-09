@@ -272,15 +272,20 @@ function stateQuery(state, county) {
     // For now, we hardcode this state variable but later it will be
     //  user input.
 
+    // electionObj contains election results in the county.
+    // Index 0 of each array is the year 2000, index 1 is 2004, etc
+
+    var electionObj = {
+        "democrat": [null, null, null, null, null],
+        "republican": [null, null, null, null, null],
+        "green": [null, null, null, null, null]
+    }
+
     $.get("/api/democrat/"+state+"/"+county, function(data) {
-        renderDemocrat(data);
+        renderDemocrat(state, county, data, electionObj);
     });
-    $.get("/api/republican/"+state+"/"+county, function(data) {
-        renderRepublican(data);
-    });
-    $.get("/api/green/"+state+"/"+county, function(data) {
-        renderGreen(data);
-    });
+
+
 }
 
 function countyQuery(county) {
@@ -295,12 +300,27 @@ function countyQuery(county) {
     });
 }
 
-function renderDemocrat(data) {
+function renderDemocrat(state, county, demData, electionObj) {
     // Takes in array of 5 objects that hold the election results for
     //  the county from 2000-2016, and renders the data to the
     //  screen.
     console.log("democratic data: ");
-    console.log(data);
+    console.log(demData);
+    for (var i=0; i<demData.length; i++) {
+        electionObj["democrat"][i] = demData[i].candidatevotes;
+    }
+
+    $.get("/api/republican/"+state+"/"+county, function(repData) {
+        for (var i=0; i<repData.length; i++) {
+            electionObj["republican"][i] = repData[i].candidatevotes;
+        }
+        $.get("/api/green/"+state+"/"+county, function(greenData) {
+            for (var i=0; i<greenData.length; i++) {
+                electionObj["green"][i] = greenData[i].candidatevotes;
+            }
+            renderElectionGraph(electionObj);
+        });
+    });
 }
 
 function renderRepublican(data) {
@@ -313,4 +333,50 @@ function renderGreen(data) {
     // same
     console.log("green data: ");
     console.log(data);
+}
+
+function renderElectionGraph (electionObj) {
+    var ctx = 'chart1';
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['2000', '2004', '2008', '2012', '2016'],
+            datasets: [{
+                label: 'Democratic Candidate Votes',
+                data: electionObj.democrat,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }, {
+                label: 'Republican Candidate Votes',
+                data: electionObj.republican,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
 }
