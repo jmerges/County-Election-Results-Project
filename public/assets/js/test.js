@@ -62,18 +62,21 @@ var stateMap = {
 
 // washington is a placeholder for any county -- hardcoded for now,
 //  will be changed in the future.
-$("#test").on("click", function(event) {
+$("#searchForm").on("submit", function(event) {
     event.preventDefault();
     console.log('hello');
-    var input = $("#submit").val();
+    var input = $("#countySearch").val();
     var countyAndState = input.split(", ");
-    var county = (countyAndState[0].split(" "))[0];
+    var county = countyAndState[0];
     county = county.toLowerCase();
-    county = county[0].toUpperCase() + county.substring(1);
+    county = (county.split(" county"))[0];
+    county = toTitleCase(county);
+
+    console.log(county);
 
     var state = countyAndState[1];
     state = state.toLowerCase();
-    state = state[0].toUpperCase() + state.substring(1);
+    state = toTitleCase(state);
 
     var countyStateString = county+" County, "+state;
     
@@ -112,7 +115,7 @@ function censusQuery(stateNum, countyAndState) {
 
     // First we call the census API to get a county ID. This will save lots of time later on
     var countyID = "";
-    var queryURL = "https://api.census.gov/data/2000/pep/int_charagegroups?get=GEONAME,POP,DATE_DESC&for=county:*&in=state:06&DATE_DESC=4/1/2000%20population%20estimates%20base";
+    var queryURL = "https://api.census.gov/data/2000/pep/int_charagegroups?get=GEONAME,POP,DATE_DESC&for=county:*&in=state:"+stateNum+"&DATE_DESC=4/1/2000%20population%20estimates%20base";
     queryURL += censusKey;
     $.get(queryURL, function(data) {
         for (var i=0; i<data.length; i++) {
@@ -261,6 +264,7 @@ function census2016 (stateNum, countyID, populationObj) {
         console.log("2016 Pacific Islander Population: "+data[1][6]);
         console.log("2016 Hispanic / Latino Population: "+data[1][7]);
         console.log(populationObj);
+        renderPopulationGraph(populationObj);
     });
 }
 
@@ -276,6 +280,7 @@ function stateQuery(state, county) {
     // Index 0 of each array is the year 2000, index 1 is 2004, etc
 
     var electionObj = {
+        "total": [null, null, null, null, null],
         "democrat": [null, null, null, null, null],
         "republican": [null, null, null, null, null],
         "green": [null, null, null, null, null]
@@ -308,6 +313,7 @@ function renderDemocrat(state, county, demData, electionObj) {
     console.log(demData);
     for (var i=0; i<demData.length; i++) {
         electionObj["democrat"][i] = demData[i].candidatevotes;
+        electionObj["total"][i] = demData[i].totalvotes;
     }
 
     $.get("/api/republican/"+state+"/"+county, function(repData) {
@@ -335,15 +341,102 @@ function renderGreen(data) {
     console.log(data);
 }
 
+const toTitleCase = (phrase) => {
+    return phrase
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+};
+
 function renderElectionGraph (electionObj) {
-    var ctx = 'chart1';
+    var democratPercent = [];
+    var republicanPercent = [];
+    for (var i=0; i<electionObj.democrat.length; i++) {
+        var demPercent = (electionObj.democrat[i]/electionObj.total[i]) * 100;
+        var repPercent = (electionObj.republican[i]/electionObj.total[i]) * 100;
+        democratPercent.push(demPercent);
+        republicanPercent.push(repPercent);
+    }
+    console.log(democratPercent);
+    var ctx = 'electionChart';
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: ['2000', '2004', '2008', '2012', '2016'],
             datasets: [{
-                label: 'Democratic Candidate Votes',
-                data: electionObj.democrat,
+                label: '% Democratic Candidate Votes',
+                data: democratPercent,
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }, {
+                label: '% Republican Candidate Votes',
+                data: republicanPercent,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        callback: function (value) {
+                          return (value*10).toLocaleString('de-DE', {style:'percent'});
+                        },
+                        beginAtZero: true
+                    }
+                }]
+            },
+            title: {
+                display: true,
+                text:"Presidential Election Data"
+            }
+        }
+    });
+    myChart.canvas.parentNode.style.height = '400px';
+    myChart.canvas.parentNode.style.width = '400px';
+}
+
+function renderPopulationGraph (populationObj) {
+    var whitePercent = [];
+    var blackPercent = [];
+    var indianPercent = [];
+    var asianPercent = [];
+    var pacificPercent = [];
+    var hispPercent = [];
+
+    var index = 0;
+    for (var year in populationObj) {
+        whitePercent[index] = (populationObj[year][1]/populationObj[year][0]) * 100;
+        blackPercent[index] = (populationObj[year][2]/populationObj[year][0]) * 100;
+        indianPercent[index] = (populationObj[year][3]/populationObj[year][0]) * 100;
+        asianPercent[index] = (populationObj[year][4]/populationObj[year][0]) * 100;
+        pacificPercent[index] = (populationObj[year][5]/populationObj[year][0]) * 100;
+        hispPercent[index] = (populationObj[year][6]/populationObj[year][0]) * 100;
+        index++;
+    }
+    var ctx = 'populationChart';
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['2000', '2004', '2008', '2012', '2016'],
+            datasets: [{
+                label: '% White Population',
+                data: whitePercent,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -362,10 +455,34 @@ function renderElectionGraph (electionObj) {
                 ],
                 borderWidth: 1
             }, {
-                label: 'Republican Candidate Votes',
-                data: electionObj.republican,
+                label: '% Black Population',
+                data: blackPercent,
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }, {
+                label: '% American Indian and Alaskan Native Population',
+                data: indianPercent,
+                backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                borderColor: 'rgba(255, 206, 86, 1)',
+                borderWidth: 1
+            }, {
+                label: '% Asian Population',
+                data: asianPercent,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }, {
+                label: '% Pacific Islander Population',
+                data: pacificPercent,
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1
+            }, {
+                label: '% Hispanic / Latino Population',
+                data: hispPercent,
+                backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                borderColor: 'rgba(255, 159, 64, 1)',
                 borderWidth: 1
             }]
         },
@@ -373,10 +490,18 @@ function renderElectionGraph (electionObj) {
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        callback: function (value) {
+                          return (value*10).toLocaleString('de-DE', {style:'percent'});
+                        },
                     }
                 }]
+            },
+            title: {
+                display: true,
+                text:"Population Data"
             }
         }
     });
+    myChart.canvas.parentNode.style.height = '400px';
+    myChart.canvas.parentNode.style.width = '400px';
 }
