@@ -17,15 +17,19 @@ module.exports = function (app) {
     // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
     // otherwise send back an error
     app.post("/api/registerUser", function (req, res) {
+        console.log(req.body)
         db.User.create({
             username: req.body.username,
-            password: req.body.password,
-            email: req.body.email
+            userPassword: req.body.password,
+            userEmail: req.body.email
         })
             .then(function () {
-                res.redirect(307, "/api/registerUser");
+                console.log("User successfully cretaed.")
+                res.json({success: true, message: "Account created. Please login."});
             })
             .catch(function (err) {
+                console.log(err)
+                console.log("error occured")
                 res.status(401).json(err);
             });
     });
@@ -46,12 +50,7 @@ module.exports = function (app) {
     });
 
 
-    // TODO: Add in ask for state functionality when user selects
-    //  a county name that exists in multiple states
 
-    app.get("/api/democrat/:county", function (req, res) {
-        var county = req.params.county;
-        orm.getCountyDemocrat(county, function (results) {
 
     // TODO: Add in ask for state functionality when user selects
     //  a county name that exists in multiple states
@@ -63,9 +62,6 @@ module.exports = function (app) {
         });
     });
 
-    app.get("/api/republican/:county", function (req, res) {
-        var county = req.params.county;
-        orm.getCountyRepublican(county, function (results) {
 
     app.get("/api/republican/:county", function(req, res) {
         var county = req.params.county;
@@ -73,11 +69,6 @@ module.exports = function (app) {
             res.json(results);
         });
     });
-
-
-    app.get("/api/green/:county", function (req, res) {
-        var county = req.params.county;
-        orm.getCountyGreen(county, function (results) {
 
     app.get("/api/green/:county", function(req, res) {
         var county = req.params.county;

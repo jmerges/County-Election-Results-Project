@@ -14,7 +14,7 @@ require("./routes/api-routes")(app);
 require("./routes/html-routes")(app);
 
 // alert user when connected
-db.sequelize.sync().then(function () {
+db.sequelize.sync({force: true}).then(function () {
     app.listen(PORT, () => {
         console.log("connection complete Listening on: http://localhost:" + PORT);
     });
