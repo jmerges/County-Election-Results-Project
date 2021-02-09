@@ -32,9 +32,17 @@
         </div>
 
         <div class="col-md-4">
-        <form id="form" action="/action_page.php">
-          <input id= "user" type="text" placeholder="Username" name="username">
-          <input id="user" type="text" placeholder="Password" name="psw">
+        <form class="login">
+          <div class="form-group">
+            <!-- <label for="username">Username</label>
+            <input type="username" class="form-control" id="usernameInput" placeholder="Username">
+          </div> -->
+          <input id="usernameInput" type="text" placeholder="Username">
+          <!-- <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+          </div> -->
+          <input id="passwordInput" type="text" placeholder="Password">
           <button type="submit" id="loginButton">Login</button>
            <!-- Modal button for signup -->
         <button type="button" id="registerButton" data-toggle="modal" data-target="#registerUser">Register</button>
