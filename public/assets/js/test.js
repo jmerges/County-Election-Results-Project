@@ -3,6 +3,8 @@
 //  this file will be used for testing purposes for server side API
 //  requests.
 
+const censusKey = "&key=8083439d317b70fa1e31a3acc5ce24f42cfb2c7e";
+
 var stateMap = {
     "Alabama": "01",
     "Alaska": "02",
@@ -111,6 +113,7 @@ function censusQuery(stateNum, countyAndState) {
     // First we call the census API to get a county ID. This will save lots of time later on
     var countyID = "";
     var queryURL = "https://api.census.gov/data/2000/pep/int_charagegroups?get=GEONAME,POP,DATE_DESC&for=county:*&in=state:06&DATE_DESC=4/1/2000%20population%20estimates%20base";
+    queryURL += censusKey;
     $.get(queryURL, function(data) {
         for (var i=0; i<data.length; i++) {
             if (data[i][0] === countyAndState) {
@@ -125,12 +128,18 @@ function censusQuery(stateNum, countyAndState) {
 
 }
 
+// census2000 gets census data for 2000, 2004 and 2008, then calls census2012 which
+//  gets data for 2012 and 2016. These data are stored in populationObj for
+//  future reference.
+// TODO: call population function at the end of census2016
+
 function census2000 (stateNum, countyID, populationObj) {
     console.log("census2000");
     var array2000 = [null, null, null, null, null, null, null];
     var array2004 = [null, null, null, null, null, null, null];
     var array2008 = [null, null, null, null, null, null, null];
     var queryURL = "https://api.census.gov/data/2000/pep/int_charagegroups?get=GEONAME,POP,DATE_DESC&for=county:"+countyID+"&in=state:"+stateNum+"&RACE=0,1,2,3,4,5";
+    queryURL += censusKey;
     $.get(queryURL, function(data) {
         for (var i=0; i<data.length; i++) {
             // get census data for 2000
@@ -200,6 +209,7 @@ function census2000 (stateNum, countyID, populationObj) {
             }
         }
         queryHispURL = "https://api.census.gov/data/2000/pep/int_charagegroups?get=GEONAME,POP,DATE_DESC&for=county:"+countyID+"&in=state:"+stateNum+"&HISP=2";
+        queryHispURL += censusKey;
         $.get(queryHispURL, function(data) {
             for (var i=0; i<data.length; i++) {
                 if (data[i][2] === "7/1/2000 population estimate") {
@@ -224,6 +234,7 @@ function census2012 (stateNum, countyID, populationObj) {
     console.log(stateNum);
     console.log(countyID);
     var queryURL = "https://api.census.gov/data/2012/acs/acs5?get=NAME,B01001_001E,B01001A_001E,B01001B_001E,B01001C_001E,B01001D_001E,B01001E_001E,B01001I_001E&for=county:"+countyID+"&in=state:"+stateNum;
+    queryURL += censusKey;
     $.get(queryURL, function(data) {
         populationObj["2012"] = [parseInt(data[1][1]), parseInt(data[1][2]), parseInt(data[1][3]), parseInt(data[1][4]), parseInt(data[1][5]), parseInt(data[1][6]), parseInt(data[1][7])];
         console.log("2012 Total Population: "+data[1][1]);
@@ -239,6 +250,7 @@ function census2012 (stateNum, countyID, populationObj) {
 
 function census2016 (stateNum, countyID, populationObj) {
     var queryURL = "https://api.census.gov/data/2016/acs/acs5?get=NAME,B01001_001E,B01001A_001E,B01001B_001E,B01001C_001E,B01001D_001E,B01001E_001E,B01001I_001E&for=county:"+countyID+"&in=state:"+stateNum;
+    queryURL += censusKey;
     $.get(queryURL, function(data) {
         populationObj["2016"] = [parseInt(data[1][1]), parseInt(data[1][2]), parseInt(data[1][3]), parseInt(data[1][4]), parseInt(data[1][5]), parseInt(data[1][6]), parseInt(data[1][7])];
         console.log("2016 Total Population: "+data[1][1]);
