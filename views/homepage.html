@@ -25,23 +25,23 @@
           </form>
         </div>
 
-
+        <div class="col-md-4">
         <div class="navbar-header">
           <a class="navbar-brand"> <h2>Votes From Sea to Shining Sea</h2></a>
         </div>
+        </div>
 
-        <div class="topnav-right">
+        <div class="col-md-4">
         <form id="form" action="/action_page.php">
-          <input type="text" placeholder="Username" name="username">
-          <input type="text" placeholder="Password" name="psw">
+          <input id= "user" type="text" placeholder="Username" name="username">
+          <input id="user" type="text" placeholder="Password" name="psw">
           <button type="submit" id="loginButton">Login</button>
+           <!-- Modal button for signup -->
+        <button type="button" id="registerButton" data-toggle="modal" data-target="#registerUser">Register</button>
         </form>
         </div>
 
-        <!-- Modal button for signup -->
-        <button type="button" id="registerButton" data-toggle="modal" data-target="#registerUser">Register</button>
-
-
+       
 
       </div>
     </div>
@@ -51,7 +51,7 @@
     <!-- recent search card will display search history  -->
     <div class="card" id="recent-search" style="width: 25rem;">
       <div class="card-header">
-        Recent Search
+        <h3>Recent Search</h3>
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item"></li>
@@ -100,7 +100,7 @@
               <input type="text" class="form-control" id="username">
             </div>
             <div class="form-group">
-              <label for="username" class="col-form-label">Password:</label>
+              <label for="password" class="col-form-label">Password:</label>
               <input type="text" class="form-control" id="userPassword">
             </div>
             <div style="display: none" id="alert" class="alert alert-danger" role="alert">
@@ -108,7 +108,7 @@
               <span class="sr-only">Error:</span> <span class="msg"></span>
             </div>
             <div class="form-group">
-              <label for="username" class="col-form-label">E-mail:</label>
+              <label for="email" class="col-form-label">E-mail:</label>
               <input type="text" class="form-control" id="userEmail">
             </div>
           </form>
