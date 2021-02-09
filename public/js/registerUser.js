@@ -1,35 +1,39 @@
 $(document).ready(function() {
   // Getting references to our form and input
   var registerUser = $("#registerUserSubmit");
-  var emailInput = $("input#username");
-  var passwordInput = $("input#password-input");
-
+  var username = $("#username");
+  var userPassword = $("#userPassword");
+  var userEmail = $("#userEmail");
+ 
   // When the signup button is clicked, we validate the email and password are not blank
-  registerUser.on("submit", function(event) {
+  registerUser.on("click", function(event) {
     event.preventDefault();
     var userData = {
-      email: emailInput.val().trim(),
-      password: passwordInput.val().trim()
+      username: username.val().trim(),
+      password: userPassword.val().trim(),
+      email: userEmail.val().trim()
     };
-
-    if (!userData.email || !userData.password) {
+console.log(userData)
+    if (!userData.username || !userData.email || !userData.password) {
       return;
     }
     // If we have an email and password, run the signUpUser function
-    registerUser(userData.email, userData.password);
-    emailInput.val("");
-    passwordInput.val("");
+    registerUsers(userData.username, userData.email, userData.password);
+    username.val("");
+    userPassword.val("");
+    userEmail.val("");
   });
 
   // Does a post to the registerUser route. If successful, we are redirected to the members page. Otherwise log any errors
   
-  function registerUser(email, password) {
+  function registerUsers(username, email, password) {
     $.post("/api/registerUser", {
-      email: email,
-      password: password
+      username: username,
+      password: password,
+      email: email
     })
       .then(function(data) {
-        window.location.replace("/members");
+        window.location.replace("/homepage");
         // If there's an error, handle it by throwing up a modal alert
       })
       .catch(handleLoginErr);
