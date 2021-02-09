@@ -36,6 +36,7 @@ console.log(userData)
       .then(function(data) {
         console.log("Server responded.")
        $("#registerUser").css("display", "none");
+       $(".modal-backdrop").remove();
        $("#alertMessage").text(data.message);
        $("#usernameInput").val(username);
         // If there's an error, handle it by throwing up a modal alert
