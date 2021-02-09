@@ -36,3 +36,6 @@ body, .topnav {
   background-color: red;
 }
 
+#col2 {
+  float: left;
+}
