@@ -22,9 +22,11 @@
     "bcrypt": "^5.0.0",
     "chart.js": "^2.9.4",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
     "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "sequelize": "^6.5.0"
   }
 }
