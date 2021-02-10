@@ -21,7 +21,7 @@
         <div class="col-md-4">
           <form class="navbar-form navbar-left" id="searchForm">
             <div id="search" class="form-group">
-              <input type="text" class="form-control" placeholder="Search" id="countySearch">
+              <input type="text" class="form-control" placeholder="County, State" id="countySearch">
             </div>
           </form>
         </div>
@@ -43,7 +43,7 @@
             <button type="button" id="registerButton" data-toggle="modal" data-target="#registerUser">Register</button>
           </form>
         </div>
-<div id="alertMessage"></div>
+        <div id="alertMessage" style="margin-left: 68%;color: white;font-size: 26px;"></div>
 
 
       </div>
@@ -79,7 +79,7 @@
       <!-- card body will display generated table -->
       <!-- <div class="row current card"> -->
 
-      <div id= card class="card-body">
+      <div id=card class="card-body">
         <div class="row">
           <div class="col-6">
             <canvas id="electionChart" height="200">Election Results for 2000-2016</canvas>
@@ -114,13 +114,13 @@
               <label for="password" class="col-form-label">Password:</label>
               <input type="text" class="form-control" id="userPassword">
             </div>
-            <div style="display: none" id="alert" class="alert alert-danger" role="alert">
-              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-              <span class="sr-only">Error:</span> <span class="msg"></span>
-            </div>
             <div class="form-group">
               <label for="email" class="col-form-label">E-mail:</label>
               <input type="text" class="form-control" id="userEmail">
+              <div style="display: none" id="alert" class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span> <span class="msg"></span>
+              </div>
             </div>
           </form>
         </div>
