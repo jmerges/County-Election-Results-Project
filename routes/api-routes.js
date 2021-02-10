@@ -50,18 +50,21 @@ module.exports = function (app) {
         }
     });
 
-    app.post("/api/democrat/:state/:county/:year/:votes", function(req, res) {
+    // New democrat entry
+    app.post("/api/democrat/:state/:county/:year/:votes/:totalvotes", function(req, res) {
         var state = req.params.state;
         var county = req.params.county;
         var year = req.params.year;
         var votes = req.params.votes;
+        var totalvotes = req.params.totalvotes;
         var party = "democrat";
         db.State.create({
             stateName: state
         }).then(function(newState) {
+            console.log(newState.get('id'));
             var newCounty = db.County.create({
                 countyName: county,
-                stateId: newState.get("id")
+                StateId: newState.get("id")
             });
             return newCounty;
 
@@ -70,25 +73,96 @@ module.exports = function (app) {
                 partyName: party,
                 electionYear: year,
                 candidateVotes: votes,
-                countyId: newCounty.get("id")
+                totalVotes: totalvotes,
+                CountyId: newCounty.get("id")
             });
+        }).then(function(newParty) {
+            res.json(newParty);
         });
-    })
+    });
+
+    // New Repubican entry
+    app.post("/api/republican/:state/:county/:year/:votes", function(req, res) {
+        var state = req.params.state;
+        var county = req.params.county;
+        var year = req.params.year;
+        var votes = req.params.votes;
+        var party = "republican";
+        db.State.create({
+            stateName: state
+        }).then(function(newState) {
+            console.log(newState.get('id'));
+            var newCounty = db.County.create({
+                countyName: county,
+                StateId: newState.get("id")
+            });
+            return newCounty;
+
+        }).then(function(newCounty) {
+            var newParty = db.Party.create({
+                partyName: party,
+                electionYear: year,
+                candidateVotes: votes,
+                totalVotes: null,
+                CountyId: newCounty.get("id")
+            });
+        }).then(function(newParty) {
+            res.json(newParty);
+        });
+    });
 
     app.get("/api/democrat/:state/:county", function(req, res) {
         var state = req.params.state;
         var county = req.params.county;
-        orm.getCountyStateDemocrat(county, state, function(results) {
-            res.json(results);
+        db.State.findAll({
+            where: {
+                stateName: state
+            },
+            include: [{
+                model: db.County,
+                where: {
+                    countyName: county
+                },
+                include: [{
+                    model: db.Party,
+                    where: {
+                        partyName: "democrat"
+                    }
+                }]
+            }]
+        }).then(state => {
+            res.json(state);
         });
+        // orm.getCountyStateDemocrat(county, state, function(results) {
+        //     res.json(results);
+        // });
     });
 
     app.get("/api/republican/:state/:county", function(req, res) {
         var state = req.params.state;
         var county = req.params.county;
-        orm.getCountyStateRepublican(county, state, function(results) {
-            res.json(results);
+        db.State.findAll({
+            where: {
+                stateName: state
+            },
+            include: [{
+                model: db.County,
+                where: {
+                    countyName: county
+                },
+                include: [{
+                    model: db.Party,
+                    where: {
+                        partyName: "republican"
+                    }
+                }]
+            }]
+        }).then(state => {
+            res.json(state);
         });
+        // orm.getCountyStateRepublican(county, state, function(results) {
+        //     res.json(results);
+        // });
     });
 
 

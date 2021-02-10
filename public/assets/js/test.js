@@ -287,6 +287,7 @@ function stateQuery(state, county) {
     }
 
     $.get("/api/democrat/"+state+"/"+county, function(data) {
+        console.log(data);
         renderDemocrat(state, county, data, electionObj);
     });
 
@@ -312,20 +313,51 @@ function renderDemocrat(state, county, demData, electionObj) {
     console.log("democratic data: ");
     console.log(demData);
     for (var i=0; i<demData.length; i++) {
-        electionObj["democrat"][i] = demData[i].candidatevotes;
-        electionObj["total"][i] = demData[i].totalvotes;
+        switch (demData[i].Counties[0].Parties[0].electionYear) {
+            case 2000:
+                electionObj["democrat"][0] = demData[i].Counties[0].Parties[0].candidateVotes;
+                electionObj["total"][0] = demData[i].Counties[0].Parties[0].totalVotes;
+                break;
+            case 2004:
+                electionObj["democrat"][1] = demData[i].Counties[0].Parties[0].candidateVotes;
+                electionObj["total"][1] = demData[i].Counties[0].Parties[0].totalVotes;
+                break;
+            case 2008:
+                electionObj["democrat"][2] = demData[i].Counties[0].Parties[0].candidateVotes;
+                electionObj["total"][2] = demData[i].Counties[0].Parties[0].totalVotes;
+            case 2012:
+                electionObj["democrat"][3] = demData[i].Counties[0].Parties[0].candidateVotes;
+                electionObj["total"][3] = demData[i].Counties[0].Parties[0].totalVotes;
+            case 2016:
+                electionObj["democrat"][4] = demData[i].Counties[0].Parties[0].candidateVotes;
+                electionObj["total"][4] = demData[i].Counties[0].Parties[0].totalVotes;
+        }
     }
+    console.log(electionObj);
 
     $.get("/api/republican/"+state+"/"+county, function(repData) {
         for (var i=0; i<repData.length; i++) {
-            electionObj["republican"][i] = repData[i].candidatevotes;
-        }
-        $.get("/api/green/"+state+"/"+county, function(greenData) {
-            for (var i=0; i<greenData.length; i++) {
-                electionObj["green"][i] = greenData[i].candidatevotes;
+            switch (repData[i].Counties[0].Parties[0].electionYear) {
+                case 2000:
+                    electionObj["republican"][0] = repData[i].Counties[0].Parties[0].candidateVotes;
+                    break;
+                case 2004:
+                    electionObj["republican"][1] = repData[i].Counties[0].Parties[0].candidateVotes;
+                    break;
+                case 2008:
+                    electionObj["republican"][2] = repData[i].Counties[0].Parties[0].candidateVotes;
+                case 2012:
+                    electionObj["republican"][3] = repData[i].Counties[0].Parties[0].candidateVotes;
+                case 2016:
+                    electionObj["republican"][4] = repData[i].Counties[0].Parties[0].candidateVotes;
             }
+        }
+        // $.get("/api/green/"+state+"/"+county, function(greenData) {
+        //     for (var i=0; i<greenData.length; i++) {
+        //         electionObj["green"][i] = greenData[i].candidatevotes;
+        //     }
             renderElectionGraph(electionObj);
-        });
+        // });
     });
 }
 
@@ -506,6 +538,47 @@ function renderPopulationGraph (populationObj) {
     myChart.canvas.parentNode.style.width = '400px';
 }
 
-$.post("/api/democrat/California/Yolo/2000/33747", function(results) {
-    console.log(results);
-});
+// $.post("/api/democrat/California/Yolo/2000/33747/61436", function(results) {
+//     console.log(results);
+// });
+// $.post("/api/democrat/California/Yolo/2004/42885/72009", function(results) {
+//     console.log(results);
+// });
+// $.post("/api/democrat/California/Yolo/2008/53488/79749", function(results) {
+//     console.log(results);
+// });
+// $.post("/api/democrat/California/Yolo/2012/48715/74475", function(results) {
+//     console.log(results);
+// });
+// $.post("/api/democrat/California/Yolo/2016/54752/82090", function(results) {
+//     console.log(results);
+// });
+
+// $.post("/api/republican/California/Yolo/2000/23057");
+
+// $.post("/api/republican/California/Yolo/2004/28005");
+
+// $.post("/api/republican/California/Yolo/2008/24592");
+
+// $.post("/api/republican/California/Yolo/2012/23368");
+
+// $.post("/api/republican/California/Yolo/2016/20739");
+
+
+// // Albany county
+// newYorkDem = [85617, 86213, 93937, 83978, 83077];
+// newYorkTotal = [141969, 147199, 147136, 135766, 139830];
+// newYorkRep = [47624, 52369, 50586, 40210, 47810];
+
+// // Payette county
+// idahoDem = [1643, 1848, 2415, 2271, 1507];
+// idahoTotal = [6858, 8180, 8613, 8495, 8704];
+// idahoRep = [4961, 6256, 5988, 6004, 6489];
+
+// for (var i=0; i<5; i++) {
+//     var yearInp = 2000 + i*4;
+//     $.post(`/api/democrat/New York/Albany/${yearInp}/${newYorkDem[i]}/${newYorkTotal[i]}`);
+//     $.post(`/api/democrat/Idaho/Payette/${yearInp}/${idahoDem[i]}/${idahoTotal[i]}`);
+//     $.post(`/api/republican/New York/Albany/${yearInp}/${newYorkRep[i]}`);
+//     $.post(`/api/republican/Idaho/Payette/${yearInp}/${idahoRep[i]}`);
+// }

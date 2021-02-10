@@ -9,7 +9,10 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false
         },
         candidateVotes: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER
+        },
+        totalVotes: {
+            type: DataTypes.INTEGER
         }
     });
     Party.associate = function(models) {

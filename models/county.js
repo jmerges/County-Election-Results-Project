@@ -1,7 +1,7 @@
 module.exports = function (sequelize, DataTypes) {
     var County = sequelize.define("County", {
         countyName: {
-            type: DataTypes.string,
+            type: DataTypes.STRING,
             allowNull: false
         }
     });

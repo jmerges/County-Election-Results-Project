@@ -1,7 +1,7 @@
 module.exports = function (sequelize, DataTypes) {
     var State = sequelize.define("State", {
         stateName: {
-            type: DataTypes.string,
+            type: DataTypes.STRING,
             allowNull: false
         }
     });
