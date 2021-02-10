@@ -505,3 +505,7 @@ function renderPopulationGraph (populationObj) {
     myChart.canvas.parentNode.style.height = '400px';
     myChart.canvas.parentNode.style.width = '400px';
 }
+
+$.post("/api/democrat/California/Yolo/2000/33747", function(results) {
+    console.log(results);
+});
