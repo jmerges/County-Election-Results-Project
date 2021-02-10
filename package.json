@@ -1,7 +1,7 @@
 {
   "name": "County-Election-Results-Project",
   "version": "1.0.0",
-  "description": "",
+  "description": "AS a voter, pollster, or politician I want an app where i can view the voter turn out from previous presidential elections. I want to be able to search for votes by county. I want to see the total votes collected by the republican, democratic, and green parties",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
