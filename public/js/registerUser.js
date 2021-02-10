@@ -13,7 +13,6 @@ $(document).ready(function() {
       password: userPassword.val().trim(),
       email: userEmail.val().trim()
     };
-console.log(userData)
     if (!userData.username || !userData.email || !userData.password) {
       return;
     }
@@ -27,14 +26,12 @@ console.log(userData)
   // Does a post to the registerUser route. If successful, we are redirected to the members page. Otherwise log any errors
   
   function registerUsers(username, password, email) {
-    console.log(username, password, email)
     $.post("/api/registerUser", {
       username: username,
       password: password,
       email: email
     })
       .then(function(data) {
-        console.log("Server responded.")
        $("#registerUser").css("display", "none");
        $(".modal-backdrop").remove();
        $("#alertMessage").text(data.message);
@@ -45,7 +42,7 @@ console.log(userData)
   }
 
   function handleLoginErr(err) {
-    $("#alert .msg").text(JSON.stringify(err.responseJSON));
+    $("#alert .msg").text("Invalid email input. Please include @ and domain in email.");
     $("#alert").fadeIn(500);
   }
 });
