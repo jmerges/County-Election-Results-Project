@@ -153,9 +153,9 @@ The route to connect the database and user input is shown below. This will have 
 
 **James Merges** 
 
-- [Link to Portfolio Site]()
-- [Link to Github]()
-- [Link to LinkedIn]()
+- [Link to Portfolio Site](https://jmerges.github.io/Portfolio/)
+- [Link to Github](https://github.com/jmerges)
+- [Link to LinkedIn](https://www.linkedin.com/in/james-merges-b938401b7/)
 
 **Vincent Nguyen** 
 
