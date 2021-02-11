@@ -18,7 +18,8 @@ AS a voter, pollster, or politician I want an app where i can view the voter tur
 [Features](#Features)<br>
 * [Search votes by county](#Search-votes-by-county)<br>
 * [See votes collected by each party](#See-votes-collected-by-each-party)<br>
-* [Create a user login and sign up](#Create-a-user-login-and-sign-up)<br>
+* [Create a user sign up](#Create-a-user-sign-up)<br>
+* [Create a user login](#Create-a-user-login)<br>
 
 [Deployed Link](#Deployed-link)<br>
 [Authors](#Authors)<br>
@@ -40,6 +41,16 @@ AS a voter, pollster, or politician I want an app where i can view the voter tur
 ## Search votes by county
 
 ```
+  <div class="topnav">
+    <div class="container-fluid">
+      <div class='row'>
+        <div class="col-md-4">
+          <form class="navbar-form navbar-left" id="searchForm">
+            <div id="search" class="form-group">
+              <input type="text" class="form-control" placeholder="County, State" id="countySearch">
+            </div>
+          </form>
+        </div>
 
 ```
 <br>
@@ -51,17 +62,84 @@ AS a voter, pollster, or politician I want an app where i can view the voter tur
 ```
 <br>
 
-## Create a user login and sign up
+## Create a user sign up
+----------------------------------
+Creating a user sign in requires numerous files to create the MVC pathway. Within the html, this register button points to lines 97-133 to pop up a modal and allow the user to input their desired username, password, and email.
 
 ```
+  <button type="button" id="registerButton" data-toggle="modal" data-target="#registerUser">Register</button>
+```
+Part of the client side javascript shown below is to be ran when the register button is clicked on the html. This hands to the database the user's information.
 
+```
+function registerUsers(username, password, email) {
+    $.post("/api/registerUser", {
+      username: username,
+      password: password,
+      email: email
+    })
+```
+The route that connects the database and the user input is shown below. Here the user's input will be sequelized and stored into the database for future use. It also sends back a message to the user on the webpage if their account creation was successful.
+```
+ app.post("/api/registerUser", function (req, res) {
+        db.User.create({
+            username: req.body.username,
+            userPassword: req.body.password,
+            userEmail: req.body.email
+        })
+            .then(function () {
+                res.json({success: true, message: "Account created. Please login."});
+            })
+            .catch(function (err) {
+                console.log("Error occured")
+                res.status(401).json(err);
+            });
+    });
+```
+
+
+## Create a user login
+----------------------------------
+Similar to building the user signup for the backend except it will utilize different parts of the html file.
+```
+<input id="usernameInput" type="text" placeholder="Username">
+<input id="passwordInput" type="text" placeholder="Password">
+<button type="submit" id="loginButton">Login</button>
+```
+Next the client javascript login.js is created to listen for a click on the login button
+```
+loginForm.on("submit", function(event) {
+    event.preventDefault();
+    var userData = {
+      username: usernameInput.val().trim(),
+      password: passwordInput.val().trim()
+    };
+```
+When successful, the user will be sent back to the same page but this time logged in. The intention is to have the user's previous searches to be displayed to them.
+```
+ function loginUser(username, password) {
+    $.post("/api/login", {
+      username: username,
+      password: password
+    })
+      .then(function() {
+        window.location.replace("/");
+        // If there's an error, log the error
+      })
+```
+The route to connect the database and user input is shown below. This will have the username and password checked via passport and if correct, will send to the console that login was successful. In a future version, the user's username will be displayed in the top right in place of the username and password input boxes.
+```
+  app.post("/api/login", passport.authenticate("local"), function (req, res) {
+        console.log("Logged in successfully")
+        res.json(req.user);
+    });
 ```
 <br>
 
 
 ## Deployed link
 
-* [See Live Site]()
+* [See Live Site](https://enigmatic-woodland-43956.herokuapp.com/)
 
 <br>
 
@@ -75,15 +153,17 @@ AS a voter, pollster, or politician I want an app where i can view the voter tur
 
 **James Merges** 
 
-- [Link to Portfolio Site]()
-- [Link to Github]()
-- [Link to LinkedIn]()
+- [Link to Portfolio Site](https://jmerges.github.io/Portfolio/)
+- [Link to Github](https://github.com/jmerges)
+- [Link to LinkedIn](https://www.linkedin.com/in/james-merges-b938401b7/)
 
 **Vincent Nguyen** 
 
-- [Link to Portfolio Site]()
-- [Link to Github]()
-- [Link to LinkedIn]()
+- [Link to Portfolio Site](https://vincent-nguyen8931.github.io/Vincent-nguyen8931-portfolio/)
+- [Link to Github](https://github.com/vincent-nguyen8931)
+- [Link to LinkedIn](https://www.linkedin.com/in/vincent-nguyen-74226a107/)
+
+
 
 <br>
 
