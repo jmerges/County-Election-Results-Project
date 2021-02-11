@@ -8,7 +8,7 @@ Description
 ------------
 
 
-AS a voter, pollster, or politician I want an app where i can view the voter turn out from previous presidential elections. I want to be able to search for votes by county. I want to see the total votes collected by the republican, democratic, and green parties
+As a voter, pollster, or politician I want an app where I can view the voter turn out from prior presidential elections. I want to be able to search for votes by county. I want to see the total votes collected by the county for republican, and democratic parties.
 
 <br>
 
