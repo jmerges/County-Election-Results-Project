@@ -8,7 +8,7 @@ Description
 ------------
 
 
-AS a voter, pollster, or politician I want an app where i can view the voter turn out from previous presidential elections. I want to be able to search for votes by county. I want to see the total votes collected by the republican, democratic, and green parties
+As a voter, pollster, or politician I want an app where I can view the voter turn out from prior presidential elections. I want to be able to search for votes by county. I want to see the total votes collected by the county for republican, and democratic parties.
 
 <br>
 
@@ -39,6 +39,10 @@ AS a voter, pollster, or politician I want an app where i can view the voter tur
 ---------------------------------
 
 ## Search votes by county
+If you input a "County, State" formatted as such, the app will query the database of election results, as well
+ as make an API request to the census.gov API. These data will be displayed using chart.js so that the user
+ can compare election results with demographic data in the county of choice. Data points are from the years 2000, 2004, 2008,
+ 2012 and 2016.
 
 ```
   <div class="topnav">
@@ -53,12 +57,88 @@ AS a voter, pollster, or politician I want an app where i can view the voter tur
         </div>
 
 ```
+example API request for election database information:
+```
+    app.get("/api/democrat/:state/:county", function(req, res) {
+        var state = req.params.state;
+        var county = req.params.county;
+        db.State.findAll({
+            where: {
+                stateName: state
+            },
+            include: [{
+                model: db.County,
+                where: {
+                    countyName: county
+                },
+                include: [{
+                    model: db.Party,
+                    where: {
+                        partyName: "democrat"
+                    }
+                }]
+            }]
+        }).then(state => {
+            res.json(state);
+        });
+    });
+```
+Example API request for census data:
+```
+    var queryURL = "https://api.census.gov/data/2000/pep/int_charagegroups?get=GEONAME,POP,DATE_DESC&for=county:*&in=state:"+stateNum+"&DATE_DESC=4/1/2000%20population%20estimates%20base";
+    queryURL += censusKey;
+    $.get(queryURL, function(data) {
+        for (var i=0; i<data.length; i++) {
+            if (data[i][0] === countyAndState) {
+                countyID += data[i][5];
+            }
+        }
+        census2000(stateNum, countyID, populationObj);
+    });
+```
 <br>
 
 ## See votes collected by each party
+We used chart.js to display voter data. Chart.js is simple to use and looks great. The customization options are a
+ little limited, but for our purposes it did the job.
 
 ```
-
+    var ctx = 'electionChart';
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['2000', '2004', '2008', '2012', '2016'],
+            datasets: [{
+                label: '% Democratic Candidate Votes',
+                data: democratPercent,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }, {
+                label: '% Republican Candidate Votes',
+                data: republicanPercent,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        callback: function (value) {
+                          return (value*10).toLocaleString('de-DE', {style:'percent'});
+                        },
+                        beginAtZero: true
+                    }
+                }]
+            },
+            title: {
+                display: true,
+                text:"Presidential Election Data"
+            }
+        }
+    });
 ```
 <br>
 
