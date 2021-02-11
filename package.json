@@ -1,0 +1,32 @@
+{
+  "name": "County-Election-Results-Project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmerges/County-Election-Results-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmerges/County-Election-Results-Project/issues"
+  },
+  "homepage": "https://github.com/jmerges/County-Election-Results-Project#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "chart.js": "^2.9.4",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.2.5",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "sequelize": "^6.5.0"
+  }
+}
