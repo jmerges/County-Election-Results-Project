@@ -11,6 +11,25 @@ body, .topnav {
 
 #recent-search, #loginButton, #registerButton {
   background-color: #2196F3;
+<<<<<<< HEAD
+
+}
+
+.topnav {
+ padding-bottom: 50px;
+ padding-top: 30px;
+ padding-left: 60px;
+ padding-right: 10px;
+}
+
+.topnav input[type=text] {
+  margin-top: 20px;
+  width:220px;
+}
+
+#loginButton:hover, #registerButton:hover {
+  background-color: red;
+=======
   margin-top: 8px;
 }
 
@@ -26,16 +45,27 @@ body, .topnav {
 .loginButton{
  padding: 30px 24px;
 
+>>>>>>> 50baf032139d0259f96bd198a11b78a119ccc7ef
 }
 
 .card {
-  min-height: 550px;
+  min-height: 500px;
+  margin: auto;
 }
 
+<<<<<<< HEAD
+h1 {
+  color: white;
+}
+
+.display {
+  display: none;
+=======
 #loginButton:hover, #registerButton:hover {
   background-color: red;
 }
 
 #col2 {
   float: left;
+>>>>>>> 50baf032139d0259f96bd198a11b78a119ccc7ef
 }

@@ -41,6 +41,16 @@ AS a voter, pollster, or politician I want an app where i can view the voter tur
 ## Search votes by county
 
 ```
+  <div class="topnav">
+    <div class="container-fluid">
+      <div class='row'>
+        <div class="col-md-4">
+          <form class="navbar-form navbar-left" id="searchForm">
+            <div id="search" class="form-group">
+              <input type="text" class="form-control" placeholder="County, State" id="countySearch">
+            </div>
+          </form>
+        </div>
 
 ```
 <br>
